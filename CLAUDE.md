@@ -53,4 +53,17 @@ Entry point: `AeroSense/App.tsx`. The app wraps content in `SafeAreaProvider` + 
 
 ## Git workflow
 
-One commit per meaningful change. The nested `AeroSense/AeroSense/` directory (inner git repo) is gitignored — do not try to add it. `node_modules/` is also excluded.
+**Commit and push after every meaningful unit of work** — a completed feature, a bug fix, a new file, a significant edit. Never leave finished work uncommitted. This ensures no progress is ever lost.
+
+Commit message format:
+- One concise subject line (imperative mood: "Add", "Fix", "Update", not "Added" or "Adds")
+- No body needed for small changes; add a short paragraph for anything non-obvious
+
+After every commit, push immediately:
+```bash
+git add <specific files>
+git commit -m "Short description of what changed and why"
+git push
+```
+
+The nested `AeroSense/AeroSense/` directory (inner git repo) is gitignored — do not try to add it. `node_modules/` is also excluded.
