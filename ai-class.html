@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI for Entrepreneurs — Automate Your Business</title>
+  <style>
+    :root {
+      --bg: #05050f;
+      --surface: #0d0d1f;
+      --card: #111128;
+      --border: #1e1e40;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --gold: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Gradient blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; left: -200px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; right: -150px; }
+    .blob-3 { width: 400px; height: 400px; background: var(--gold); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(5,5,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.35);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: var(--accent2);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    h1 .gradient {
+      background: linear-gradient(135deg, #a78bfa, var(--accent2), #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 48px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent), #5b21b6);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 18px 44px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 40px rgba(124,58,237,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 60px rgba(124,58,237,0.65); }
+    .cta-btn svg { width: 20px; height: 20px; }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .meta-item span { color: var(--text); font-weight: 600; }
+
+    /* ── Section wrapper ── */
+    section { position: relative; z-index: 1; padding: 80px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin-bottom: 52px;
+    }
+
+    /* ── Tools grid ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tool-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+    .tool-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .tool-card p { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── Schedule ── */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .day-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .day-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .day-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .day-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .day-card p { font-size: 0.82rem; color: var(--muted); }
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(6,182,212,0.12);
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      margin-top: 10px;
+    }
+
+    /* ── What you'll learn ── */
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .learn-item {
+      display: flex;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .learn-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 12px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .learn-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .learn-item p { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Community ── */
+    .community-banner {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.15));
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .member-count {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .avatars {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+    }
+    .avatar:first-child { margin-left: 0; }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 720px; margin: 0 auto; }
+    details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    details[open] { border-color: var(--accent); }
+    summary {
+      padding: 20px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 1.3rem;
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+    details[open] summary::after { transform: rotate(45deg); }
+    .faq-body { padding: 0 24px 20px; color: var(--muted); font-size: 0.9rem; }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      text-align: center;
+      padding: 100px 24px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.2), transparent 70%);
+    }
+    .final-cta h2 { margin-bottom: 16px; }
+    .final-cta p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 40px; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 70px 16px 60px; }
+      .community-banner { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="logo">⚡ GenSpark AI Class</div>
+    <div class="nav-badge">
+      <div class="dot"></div>
+      Live Tue – Fri
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section>
+    <div class="hero">
+      <div class="hero-eyebrow">🚀 For Entrepreneurs</div>
+      <h1>
+        Automate Your Business<br>
+        With <span class="gradient">AI — Starting Today</span>
+      </h1>
+      <p class="hero-sub">
+        Learn to use Claude, ChatGPT, Gemini &amp; Gen Spark in live sessions with 400+ entrepreneurs building smarter businesses.
+      </p>
+      <a href="#join" class="cta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Join the Community — It's Free
+      </a>
+      <div class="hero-meta">
+        <div class="meta-item">👥 <span>400+</span> members</div>
+        <div class="meta-item">📅 <span>Tue–Fri</span> live classes</div>
+        <div class="meta-item">🤖 <span>4 AI</span> platforms</div>
+        <div class="meta-item">🎓 <span>Free</span> to join</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AI Tools -->
+  <section>
+    <div class="container">
+      <div class="section-tag">What you'll master</div>
+      <h2>4 Powerful AI Platforms</h2>
+      <p class="section-sub">Hands-on training with every major AI tool so you can pick the right one for every task.</p>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-icon" style="background:rgba(245,158,11,0.15);">⚡</div>
+          <h3>Gen Spark</h3>
+          <p>AI-powered research and business intelligence at lightning speed.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon" style="background:rgba(124,58,237,0.15);">🤖</div>
+          <h3>Claude</h3>
+          <p>Advanced reasoning, long documents, coding, and deep analysis.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon" style="background:rgba(34,197,94,0.15);">💬</div>
+          <h3>ChatGPT</h3>
+          <p>Content creation, customer service bots, and workflow automation.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon" style="background:rgba(6,182,212,0.15);">✨</div>
+          <h3>Gemini</h3>
+          <p>Multimodal AI for images, data, spreadsheets, and Google Workspace.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Schedule -->
+  <section>
+    <div class="container">
+      <div class="section-tag">Weekly Schedule</div>
+      <h2>Live Classes Every Week</h2>
+      <p class="section-sub">Four days of focused, practical sessions — each one builds on the last.</p>
+      <div class="schedule-grid">
+        <div class="day-card">
+          <div class="day-label">Tuesday</div>
+          <h3>AI Foundations</h3>
+          <p>Prompting mastery and picking the right AI for your business goals.</p>
+          <div class="time-badge">🕐 Live Session</div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">Wednesday</div>
+          <h3>Automation Workflows</h3>
+          <p>Build your first AI-powered business workflow from scratch.</p>
+          <div class="time-badge">🕐 Live Session</div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">Thursday</div>
+          <h3>Content &amp; Marketing</h3>
+          <p>Generate months of content, ads, and email sequences with AI.</p>
+          <div class="time-badge">🕐 Live Session</div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">Friday</div>
+          <h3>Q&amp;A + Hot Seats</h3>
+          <p>Live problem-solving on your real business challenges with AI.</p>
+          <div class="time-badge">🕐 Live Session</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- What you'll learn -->
+  <section>
+    <div class="container">
+      <div class="section-tag">Curriculum</div>
+      <h2>What You'll Learn</h2>
+      <p class="section-sub">Practical skills you can use in your business the same day you learn them.</p>
+      <div class="learn-grid">
+        <div class="learn-item">
+          <div class="learn-icon">⚙️</div>
+          <div>
+            <h3>Automate Repetitive Tasks</h3>
+            <p>Build AI agents that handle email, scheduling, research, and reporting on autopilot.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-icon">✍️</div>
+          <div>
+            <h3>AI Content at Scale</h3>
+            <p>Generate blog posts, social media, newsletters, and sales copy in minutes.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-icon">💡</div>
+          <div>
+            <h3>Smarter Decision Making</h3>
+            <p>Use AI to analyze data, spot trends, and make faster, better business decisions.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-icon">🛠️</div>
+          <div>
+            <h3>Build Custom AI Tools</h3>
+            <p>Create personalized AI assistants and chatbots tailored to your specific business.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-icon">💰</div>
+          <div>
+            <h3>Cut Costs, Grow Revenue</h3>
+            <p>Replace expensive tools and manual labor with lean AI-powered systems.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-icon">🔗</div>
+          <div>
+            <h3>Integrate Across Platforms</h3>
+            <p>Connect AI to your existing tools — Notion, Slack, Google Workspace, CRMs, and more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Community -->
+  <section id="join">
+    <div class="container">
+      <div class="community-banner">
+        <div class="avatars">
+          <div class="avatar">👩‍💼</div>
+          <div class="avatar">👨‍💻</div>
+          <div class="avatar">👩‍🚀</div>
+          <div class="avatar">👨‍🎨</div>
+          <div class="avatar">👩‍🔬</div>
+          <div class="avatar" style="background:rgba(124,58,237,0.3);font-size:0.75rem;color:var(--accent2);font-weight:700;">+395</div>
+        </div>
+        <div class="member-count">400+</div>
+        <div style="font-size:1.1rem;color:var(--muted);margin-bottom:8px;">entrepreneurs already inside</div>
+        <h2 style="margin-bottom:16px;">Join a Community That Gets It</h2>
+        <p style="color:var(--muted);max-width:520px;margin:0 auto 36px;">
+          Surround yourself with business owners learning AI together. Share wins, get feedback, discover new tools, and grow faster as a group.
+        </p>
+        <a href="#" class="cta-btn" style="font-size:1.15rem;padding:20px 52px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:22px;height:22px;"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Join Free — Start Learning Today
+        </a>
+        <p style="margin-top:18px;font-size:0.82rem;color:var(--muted);">No credit card required &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; Instant access</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container" style="text-align:center;">
+      <div class="section-tag">FAQ</div>
+      <h2 style="margin-bottom:40px;">Common Questions</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Do I need any technical background?</summary>
+          <div class="faq-body">Not at all. This class is designed specifically for entrepreneurs and business owners — no coding or tech skills required. If you can type, you can use AI.</div>
+        </details>
+        <details>
+          <summary>What days and times are the live sessions?</summary>
+          <div class="faq-body">Live classes run Tuesday through Friday each week. Exact times are shared inside the community once you join, and replays are available if you can't attend live.</div>
+        </details>
+        <details>
+          <summary>Which AI tools will we cover?</summary>
+          <div class="faq-body">You'll get hands-on training with Gen Spark, Claude, ChatGPT, and Google Gemini — the four most powerful AI platforms for business automation today.</div>
+        </details>
+        <details>
+          <summary>How is this different from YouTube tutorials?</summary>
+          <div class="faq-body">Live classes mean you can ask questions in real time, get feedback on your specific business, and have your AI setups reviewed. Plus, you're learning alongside 400 entrepreneurs facing the same challenges you are.</div>
+        </details>
+        <details>
+          <summary>Is it really free to join?</summary>
+          <div class="faq-body">Yes — joining the community is completely free. Access the live classes, replays, and the full member network at no cost.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <div class="final-cta">
+    <div class="section-tag" style="text-align:center;">Ready?</div>
+    <h2>Your Competition Is Already<br>Using AI. Are You?</h2>
+    <p>Join 400+ entrepreneurs learning to automate their business with the most powerful AI tools available — live, every week.</p>
+    <a href="#" class="cta-btn" style="font-size:1.15rem;padding:20px 52px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:22px;height:22px;"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Join the Community Free
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p style="margin-bottom:6px;font-weight:600;color:var(--text);">⚡ GenSpark AI Class</p>
+    <p>Live classes Tue – Fri &nbsp;·&nbsp; Claude · ChatGPT · Gemini · Gen Spark &nbsp;·&nbsp; 400+ members</p>
+  </footer>
+
+</body>
+</html>
