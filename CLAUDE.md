@@ -13,6 +13,7 @@ This is a monorepo of independent projects:
 | `ai-class.html` | Browser app | Single-file HTML/CSS/JS |
 | `ideas-app/index.html` | Browser app | Eisenhower Matrix idea manager, single file |
 | `AeroSense/` | React Native app | TypeScript, React Native 0.85, bootstrapped with RN CLI |
+| `claude-garmin/` | Python project | Garmin Connect MCP server + a standalone marathon training dashboard (`dashboard.py`). Own git repo (github.com/Jack-Abyss/claude-garmin), gitignored here. |
 
 ## Browser projects (HTML files)
 
@@ -51,6 +52,18 @@ Requires React Native environment setup: https://reactnative.dev/docs/set-up-you
 
 Entry point: `AeroSense/App.tsx`. The app wraps content in `SafeAreaProvider` + `AppContent`; all new screens go inside `AppContent`.
 
+## claude-garmin (Python)
+
+All commands run from `claude-garmin/`, using the system `python3` (has `garminconnect` installed globally — no venv needed to run `dashboard.py`):
+
+```bash
+python3 dashboard.py    # refresh data from Garmin, rewrite index.html
+```
+
+Reuses cached Garmin OAuth tokens at `~/.garminconnect` — never prompts for a password. If login fails, run `python3 garmin_mcp.py login` once from this folder. A Desktop launcher (`~/Desktop/Run Garmin Dashboard.command`) runs the same thing without a terminal.
+
+To point the dashboard at a different training block later, change `CURRENT_PLAN` near the top of `dashboard.py` to a new `plans/<name>.json` file (keep old plan files as an archive, don't delete them).
+
 ## Git workflow
 
 **Commit and push after every meaningful unit of work** — a completed feature, a bug fix, a new file, a significant edit. Never leave finished work uncommitted. This ensures no progress is ever lost.
@@ -66,4 +79,4 @@ git commit -m "Short description of what changed and why"
 git push
 ```
 
-The nested `AeroSense/AeroSense/` directory (inner git repo) is gitignored — do not try to add it. `node_modules/` is also excluded.
+The nested `AeroSense/AeroSense/` directory (inner git repo) is gitignored — do not try to add it. `node_modules/` is also excluded. `claude-garmin/` is its own independent git repo (separate GitHub remote) and is entirely gitignored here — commit/push changes there from inside that folder, not from this monorepo.
