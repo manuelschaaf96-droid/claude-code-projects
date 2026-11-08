@@ -109,4 +109,6 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. Exported to Photos/Edits.
 - v6 (2026-11-08): Manuel tries green screen again with his own clips: screaming cat on the hook, happy cat at the end.
 - v7 (2026-11-08): Manuel: better music, better sound, funnier, faster cuts. Rebuilt in Edits with licensed music + Edits SFX.
-- v7c (2026-11-08): text at 6.4 s → "TREPPENLÄUFE HAT GEWONNEN" (Manuel). Manuel had removed the whip pan in Edits (−0.47 s, ripple); both Kernkraft pieces moved −0.47 s to stay on the cuts (drop now 11.93 s, music gap 18.77–20.27 s). _waiting for notes_
+- v7c (2026-11-08): text at 6.4 s → "TREPPENLÄUFE HAT GEWONNEN" (Manuel). Manuel had removed the whip pan in Edits (−0.47 s, ripple); both Kernkraft pieces moved −0.47 s to stay on the cuts (drop now 11.93 s, music gap 18.77–20.27 s).
+- v7d (2026-11-08, in Edits): removed the two non-stairs shots at 17.9–18.77 s (IMG_2625 flag path, IMG_2626 building; 2 beats). Kernkraft piece 1 trimmed to 17.9, piece 2 moved to 19.4; record stop re-added at 17.87 (ripple delete had removed it). Reel now 21.8 s.
+  **The Edits project is now the source of truth** — Manuel's and these edits are not in `build.py`. _waiting for notes_
