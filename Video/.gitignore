@@ -1,0 +1,31 @@
+# Media files are too large for git — only plans, notes and scripts are versioned.
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.m4v
+*.hevc
+*.mkv
+*.webm
+*.avi
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.jpg
+*.JPG
+*.jpeg
+*.png
+*.PNG
+*.heic
+*.HEIC
+*.srt
+*.vtt
+
+# Working folders that only ever hold media
+inbox/*
+!inbox/.gitkeep
+projects/*/raw/
+projects/*/refs/
+projects/*/exports/
+projects/*/work/
