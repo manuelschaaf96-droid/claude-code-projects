@@ -114,4 +114,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
   **The Edits project is now the source of truth** — Manuel's and these edits are not in `build.py`.
 - v7f (2026-11-08, in Edits): opening text → "Wer wollte Treppenläufe?" (first video piece 0–8 s swapped to `treppenlauf_v7f.mp4`).
 - v7g (2026-11-08, in Edits): opening text corrected to "Wer wollte Treppen laufen?" (piece 0–8 s → `treppenlauf_v7g.mp4`).
-- v7h (2026-11-08, in Edits): Leo text → "Also habe ich nachgefragt …"; camera sound muted 6.26–7.59 s (`MUTE` in build.py). Pieces 0–8 s and 8–17.9 s now use `treppenlauf_v7h.mp4` (piece 2 slipped back to source 8.467). _waiting for notes_
+- v7h (2026-11-08, in Edits): Leo text → "Also habe ich nachgefragt …"; camera sound muted 6.26–7.59 s (`MUTE` in build.py). Pieces 0–8 s and 8–17.9 s now use `treppenlauf_v7h.mp4` (piece 2 slipped back to source 8.467).
+- v7i (2026-11-08, in Edits): removed the slow-mo park shot (IMG_2630, 15.33–17.07 s, 4 beats) — no stairs. Kernkraft piece 1 now ends 16.17 ("Okay …"), piece 2 moved to 17.67 ("geil"); SFX rippled. Reel now 20.1 s, reality section stairs-only. _waiting for notes_
