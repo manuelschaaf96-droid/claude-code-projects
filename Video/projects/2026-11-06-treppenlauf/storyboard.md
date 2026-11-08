@@ -53,7 +53,7 @@ Edits project "Treppenlauf v7" (built via the Edits MCP) adds:
 | 19.65 | Sigh | 1.4 |
 | 20.73–23.13 | 🎵 Kernkraft continues (on grid) under the happy cat + Yay (crowd) | 0.4 / 0.6 |
 
-Licensed songs are stripped from Edits file exports — post directly from Edits. Edits' own SFX need no credits.
+Correction (v7k): Edits file exports DO contain the licensed songs (the earlier test was a music-only project, which exports silent). Posting from Edits keeps the licence; a re-uploaded file may get its audio flagged by Instagram. Edits' own SFX need no credits.
 
 ## Cats (v6)
 
@@ -118,3 +118,4 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v7i (2026-11-08, in Edits): removed the slow-mo park shot (IMG_2630, 15.33–17.07 s, 4 beats) — no stairs. Kernkraft piece 1 now ends 16.17 ("Okay …"), piece 2 moved to 17.67 ("geil"); SFX rippled. Reel now 20.1 s, reality section stairs-only.
 - v7j (2026-11-08, in Edits): removed "Ich habe für LAUF-ABC gestimmt" (5.1–6.4 s). Wii trimmed to 5.1 (stops on the record scratch), both Kernkraft pieces −1.3 s; piece 2 snapped to the "geil" cut (16.333) after a 1-frame trim on the "Okay" piece. Reel now 18.77 s. Manuel: "rest passt".
 - v7k (2026-11-08, full check in Edits): Manuel had also removed the stairs shot at 14.03–14.87 → re-added the record stop (deleted with it), Kernkraft 1 ends on "Okay …" (14.033), Kernkraft 2 on "geil" (15.5) to the end, re-entry slipped onto a whole beat (source 57.32). Volumes rebalanced after playback metering: Wii 0.45, What 1.0, Boom 0.6, Whoosh 0.7, Sad trombone 0.75, Kernkraft 1.15 / 0.55. Reel 17.9 s.
+- Export for iPhone (2026-11-08): `~/Movies/Claude Exports/Treppenlauf_iPhone.mp4` (1440×2560, 60 fps HEVC, 17.9 s) — contains music + SFX + camera sound; Manuel AirDrops it to the iPhone.

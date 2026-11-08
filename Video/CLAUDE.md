@@ -56,6 +56,9 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
   sound effects, transitions, colour, export, frame capture. **Edits is sandboxed: it can only import
   files from `~/Movies`** — copy deliverables to `~/Movies/Claude Exports/` before `importMedia`.
   Never import into the Photos library.
+  `export` (path in `~/Movies`) renders the full mix **including licensed songs** (verified 2026-11-08: tempo of both
+  songs measurable in the file; a project with *only* a song and no video exports without audio). Note: a file with
+  licensed music posted outside Edits may be flagged/muted by Instagram — posting from Edits keeps the licence.
   **Never delete or overwrite files in `~/Movies/Claude Exports/`** — Edits references them in place
   (no copy); deleting one breaks every project that uses it. To swap a clip's media use a **new filename**
   (`replaceElementMedia` refuses a name already in its library) and check `sourceInPoint` afterwards:
