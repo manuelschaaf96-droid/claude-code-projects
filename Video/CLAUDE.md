@@ -38,6 +38,8 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
 4. **Rough cut** — Claude cuts per the storyboard's cut list with ffmpeg, renders a low-res preview
    to `exports/` (`*_preview.mp4`), and sends it. Manuel gives notes by timecode ("at 0:04 cut earlier").
 5. **Final** — export per `style-guide.md` export spec → `exports/<slug>_final.mp4`.
+   Deliverables stay in `exports/`. Never auto-import into Photos. Manuel brings them into Edits himself
+   (Edits has no file/share/URL import route Claude can use).
 6. Commit the `.md` files and push.
 
 ## Tools & skills
