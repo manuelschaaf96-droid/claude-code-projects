@@ -29,3 +29,4 @@ projects/*/raw/
 projects/*/refs/
 projects/*/exports/
 projects/*/work/
+projects/*/.media/

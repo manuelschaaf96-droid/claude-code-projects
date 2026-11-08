@@ -26,9 +26,9 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 5 | 7.8–8.2 | IMG_2629 | 0.2 | 0.4 | whip | — |
 | 6 | 8.2–10.2 | IMG_2654.PNG | DM chat | 2.0 | slow push | Also habe ich Leo gefragt, wie viele dafür gestimmt haben … |
 | 7 | 10.2–11.6 | IMG_2654.PNG | zoom on "15 Leute" | 1.4 | punch zoom + bass hit | **15.** |
-| 8–15 | 11.6–20.6 | 2631, 2632, 2633, 2632, 2630 (slow-mo), 2631, 2634, 2625 | | ~1 s each | quick cuts | — (music carries it) |
-| 16 | 20.6–22.6 | IMG_2634 | 2.5 | 2.0 | | Okay … ich muss zugeben. |
-| 17 | 22.6–24.65 | IMG_2634 | 4.5 | 2.05 | slow push | War doch ziemlich geil. |
+| 8–15 | 11.6–20.07 | 2631, 2632, 2633, 2632, 2630 (slow-mo, 4 beats), 2631, 2634, 2625 | | 2 beats (~0.94 s) each | cuts on the beat, drop on #8 | — (music carries it) |
+| 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
+| 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
 
 ## Open questions
 
