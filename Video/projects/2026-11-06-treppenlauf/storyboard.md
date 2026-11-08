@@ -1,7 +1,7 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v3 (music + sound effects)
+- **Status:** rough cut v4 (meme templates + new hook)
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
@@ -30,6 +30,21 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
 | 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
 
+## Meme templates (v4)
+
+Green/blue-screen templates Manuel screen-recorded from CapCut → `refs/capcut_1..3.mov` (gitignored), keyed in `build.py`.
+
+| Edit time | Template | Use |
+|---|---|---|
+| 0–1.3 s | — | Hook part 1: "Wer wollte Treppenlauf?" |
+| 1.3–2.8 s | capcut_1 0–1.5 s (dog, side-eye) | slides in from left on whoosh + "huh?"; text "WER WOLLTE TREPPEN LAUFEN?!" |
+| 6.2–7.3 s | capcut_2 2.55 s (girl + tablet) | our vote card keyed into the blue tablet screen: "TREPPENLÄUFE 15 STIMMEN" |
+| 7.3–8.8 s | capcut_2 9.9 s (girl screams) | "whaaat" + "15 LEUTE WOLLEN TREPPENLAUF?!" |
+| 11.2–13.8 s | capcut_1 22.5 s (dog, open-mouth stare) | bottom right on "15." while groaning |
+| 24.2–26.5 s | capcut_3 2 s (dancing cat) | bottom right on "ZIEMLICH GEIL." |
+
+Template sound is not used. The screen recordings are low-res (~850 px), so the meme parts are softer than our footage.
+
 ## Sound effects (v3)
 
 | Edit time | Sound | Why |
@@ -57,4 +72,5 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 
 - v1 preview (2026-11-08): fixed text overlaps; Manuel asked for music.
 - v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. Manuel: "schon sehr gut", needs more humor + SFX (whaat, Leo check, jammern).
-- v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". _waiting for notes_
+- v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". Manuel: good; new hook "Wer wollte Treppenlauf?" + whoosh + SFX, add grumpy dog overlays; sent CapCut templates.
+- v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. _waiting for notes_

@@ -29,26 +29,40 @@ DM_CROP = (0, 452, 1170, 452 + 2080)
 def dm(x, y):  # absolute screenshot coords -> normalised focus inside the crop
     return ((x - DM_CROP[0]) / 1170, (y - DM_CROP[1]) / 2080)
 
+# Green/blue-screen meme templates (screen recordings from CapCut in refs/). Keyed with colorkey.
+REFS = ROOT / "refs"
+DOG_SIDEEYE = dict(src="capcut_1.mov", ss=0.0, key="0x5FFD00", crop=(0, 8, 858, 1228),
+                   w=1000, x=-60, y=1920 - 1431, slide=0.18)          # suspicious side-eye, slides in from left
+DOG_STARE = dict(src="capcut_1.mov", ss=22.5, key="0x5FFD00", crop=(300, 8, 558, 1228),
+                 w=520, x=1080 - 500, y=1920 - 1145)                 # open-mouth stare, bottom right
+CAT_DANCE = dict(src="capcut_3.mov", ss=2.0, key="0x00FE00", crop=(0, 0, 844, 1102),
+                 w=560, x=1080 - 540, y=1920 - 731 - 150)            # dancing cat with cap
+POLL_SCREEN = dict(key="0x0000FD", center=(540, 900), angle=19.5)  # tablet screen in capcut_2
+
 SEGMENTS = [
     # --- Scene 1: hook
-    dict(src="IMG_2631.MOV", ss=2.6, dur=2.6, zoom=(1.0, 1.12),
-         text=T(560, ("15 LEUTE", 130, YELLOW), ("haben tatsächlich für", 64, WHITE),
-                ("Treppenläufe gestimmt?!", 64, WHITE))),
+    dict(src="IMG_2631.MOV", ss=2.0, dur=1.3, zoom=(1.0, 1.08),
+         text=T(560, ("Wer wollte", 80, WHITE), ("Treppenlauf?", 80, WHITE))),
+    dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.5, zoom=(1.25, 1.35), ease=True,
+         text=T(520, ("WER WOLLTE", 120, YELLOW), ("TREPPEN", 120, YELLOW), ("LAUFEN?!", 120, YELLOW)),
+         overlays=[DOG_SIDEEYE]),
     # --- Scene 2: disbelief
     dict(src="IMG_2625.MOV", ss=5.0, dur=1.6, zoom=(1.05, 1.15),
          text=T(600, ("WIR HATTEN", 110, WHITE), ("DIE WAHL.", 110, WHITE), ("", 30, WHITE),
                 ("Lauf-ABC", 56, WHITE), ("Last K, Fast K", 56, WHITE), ("Treppenläufe", 56, WHITE))),
     dict(src="IMG_2628.MOV", ss=0.8, dur=1.8, zoom=(1.12, 1.12),
          text=T(560, ("Ich habe für", 72, WHITE), ("LAUF-ABC", 120, YELLOW), ("gestimmt.", 72, WHITE))),
-    dict(id="what", src="IMG_2626.MOV", ss=0.8, dur=1.8, zoom=(1.0, 1.3), ease=True,
-         text=T(600, ("15 LEUTE", 130, YELLOW), ("WOLLEN", 110, WHITE), ("TREPPENLAUF?!", 100, WHITE))),
+    # girl-with-tablet meme: the tablet shows the vote result, then she screams
+    dict(tpl="capcut_2.mov", ss=2.55, dur=1.15, screen=POLL_SCREEN),
+    dict(id="what", tpl="capcut_2.mov", ss=9.9, dur=1.5,
+         text=T(400, ("15 LEUTE", 120, YELLOW), ("WOLLEN TREPPENLAUF?!", 72, WHITE))),
     dict(id="whip", src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
     # --- Scene 3: confirmation (DM screenshot)
     dict(id="leo", img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),
          text=T(420, ("Also habe ich Leo gefragt,", 60, WHITE), ("wie viele dafür", 60, WHITE),
                 ("gestimmt haben …", 60, WHITE), box=True)),
     dict(id="fifteen", img="IMG_2654.PNG", dur=2.6, zoom=(2.0, 2.9), ease=True, focus=dm(340, 1820), hit=True,
-         text=T(470, ("15.", 330, YELLOW))),
+         text=T(470, ("15.", 330, YELLOW)), overlays=[DOG_STARE]),
     # --- Scene 4: reality — quick cuts (re-time to music beat later)
     # From here on lengths are in beats of the sports track; the drop lands on the first cut.
     dict(src="IMG_2631.MOV", ss=4.0, beats=2, zoom=(1.1, 1.18)),
@@ -63,7 +77,7 @@ SEGMENTS = [
     dict(id="okay", src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
          text=T(520, ("Okay …", 100, WHITE), ("ich muss zugeben.", 72, WHITE))),
     dict(id="geil", src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
-         text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW))),
+         text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW)), overlays=[CAT_DANCE]),
 ]
 
 # --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
@@ -75,6 +89,8 @@ HYPE = dict(file=BGM / "bgm_001.wav", drop=46.97, lead=0.7, vol=0.9)  # sports, 
 # Sound effects (Openverse / bundled, see .media/audio/sfx/CREDITS.md). Placed relative to a segment id.
 SFX_DIR = ROOT / ".media" / "audio" / "sfx"
 SFX = [  # (segment id, offset s, file, trim start, length, gain, tempo)
+    ("hook",   -0.15, "sfx_011.mp3", 0.0,  0.57, 0.9, 1.0),   # whoosh into the hook punchline
+    ("hook",    0.25, "sfx_007.mp3", 0.0,  0.9,  4.0, 1.0),   # "huh?" with the side-eye dog
     ("what",    0.12, "sfx_006.mp3", 0.0,  1.1,  6.0, 0.8),   # "confused what?" stretched to a "whaaat"
     ("whip",   -0.15, "sfx_011.mp3", 0.0,  0.57, 0.8, 1.0),   # whoosh on the whip pan
     ("leo",     0.20, "sfx_001.mp3", 0.0,  1.6,  3.0, 1.0),   # typing the DM
@@ -130,18 +146,62 @@ def zoompan(z0, z1, frames, ease=False, focus=(0.5, 0.5)):
             f":d=1:s={W}x{H}:fps={FPS}")
 
 
+def render_poll(path, center, angle):
+    """White 'app' screen with the vote result, rotated to match the tablet in the template."""
+    card = Image.new("RGBA", (1400, 900), (255, 255, 255, 255))
+    d = ImageDraw.Draw(card)
+    rows = [("UMFRAGE FREITAG", 52, (120, 120, 120)), ("Lauf-ABC: 1", 70, (60, 60, 60)),
+            ("TREPPENLÄUFE", 110, (220, 30, 30)), ("15 STIMMEN", 90, (220, 30, 30))]
+    y = 70
+    for text, size, colour in rows:
+        f = ImageFont.truetype(FONT, size)
+        tw = d.textbbox((0, 0), text, font=f)[2]
+        d.text(((1400 - tw) / 2, y), text, font=f, fill=colour)
+        y += int(size * 1.35)
+    card = card.rotate(angle, expand=True, resample=Image.BICUBIC, fillcolor=(255, 255, 255, 255))
+    bg = Image.new("RGB", (W, H), (255, 255, 255))
+    bg.paste(card, (int(center[0] - card.width / 2), int(center[1] - card.height / 2)), card)
+    bg.save(path)
+
+
+def n_inputs(inputs):
+    return sum(1 for x in inputs if x == "-i")
+
+
 def build_segment(i, seg):
     out = WORK / f"seg_{i:02d}.mp4"
     dur = seg["dur"]
     frames = round(dur * FPS)
     zp = zoompan(*seg.get("zoom", (1.0, 1.0)), frames, seg.get("ease", False), seg.get("focus", (0.5, 0.5)))
     inputs, fc = [], []
+    silent = ["-f", "lavfi", "-t", f"{dur:.3f}", "-i", "anullsrc=r=48000:cl=stereo"]
     if "src" in seg:
         speed = seg.get("speed", 1.0)
         inputs += ["-ss", str(seg["ss"]), "-t", f"{dur * speed + 0.1:.3f}", "-i", str(RAW / seg["src"])]
         fc.append(f"[0:v]{GRADE},setpts=(PTS-STARTPTS)/{speed},fps={FPS},scale=2160:3840,{zp},{LOOK}[base]")
         fc.append(f"[0:a]atempo={speed},aresample=48000,volume={ORIG_VOL},"
                   f"afade=t=in:d=0.03,afade=t=out:st={dur - 0.04:.3f}:d=0.04[aud]")
+    elif "tpl" in seg:  # meme template as the full picture (SDR screen recording, no HDR conversion)
+        inputs += ["-ss", str(seg["ss"]), "-t", f"{dur + 0.1:.3f}", "-i", str(REFS / seg["tpl"])]
+        fc.append(f"[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=-2:{H},crop={W}:{H},setsar=1[tplv]")
+        if seg.get("screen"):
+            sc = seg["screen"]
+            poll = WORK / f"poll_{i:02d}.png"
+            render_poll(poll, sc["center"], sc["angle"])
+            idx = n_inputs(inputs)
+            inputs += ["-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.3f}", "-i", str(poll)]
+            # template's white "PIC/VIDEO" lettering sits on the blue screen: recolour light-blue/white
+            # pixels to the key blue first so the letters vanish too, then key.
+            c = "gt(b(X\\,Y)\\,200)*gt(r(X\\,Y)+g(X\\,Y)\\,180)"
+            fc.append(f"[tplv]format=gbrp,geq=r='if({c}\\,0\\,r(X\\,Y))':g='if({c}\\,0\\,g(X\\,Y))'"
+                      f":b='if({c}\\,253\\,b(X\\,Y))',colorkey={sc['key']}:0.38:0.10[keyed];"
+                      f"[{idx}:v]format=yuv420p[under];"
+                      f"[under][keyed]overlay=0:0:shortest=1[base]")
+        else:
+            fc.append("[tplv]null[base]")
+        idx = n_inputs(inputs)
+        inputs += silent
+        fc.append(f"[{idx}:a]aformat=channel_layouts=stereo,aresample=48000[aud]")
     else:
         still = WORK / "dm_crop.png"
         if not still.exists():
@@ -152,15 +212,26 @@ def build_segment(i, seg):
             inputs += ["-f", "lavfi", "-t", f"{dur:.3f}", "-i",
                        "aevalsrc='0.9*sin(2*PI*52*t)*exp(-4*t)+0.35*sin(2*PI*104*t)*exp(-8*t)':s=48000"]
         else:
-            inputs += ["-f", "lavfi", "-t", f"{dur:.3f}", "-i", "anullsrc=r=48000:cl=stereo"]
+            inputs += silent
         fc.append("[1:a]aformat=channel_layouts=stereo,aresample=48000[aud]")
     vlabel = "base"
+    for k, ov in enumerate(seg.get("overlays", [])):  # keyed meme overlays
+        idx = n_inputs(inputs)
+        inputs += ["-ss", str(ov["ss"]), "-t", f"{dur + 0.1:.3f}", "-i", str(REFS / ov["src"])]
+        cx, cy, cw, ch = ov["crop"]
+        fc.append(f"[{idx}:v]setpts=PTS-STARTPTS,fps={FPS},crop={cw}:{ch}:{cx}:{cy},"
+                  f"colorkey={ov['key']}:0.30:0.10,scale={ov['w']}:-2,format=yuva420p[ov{k}]")
+        x = str(ov["x"])
+        if ov.get("slide"):  # slide in from the left edge
+            x = f"if(lt(t,{ov['slide']}),-w+(w+{ov['x']})*t/{ov['slide']},{ov['x']})"
+        fc.append(f"[{vlabel}][ov{k}]overlay=x='{x}':y={ov['y']}:eof_action=pass[o{k}]")
+        vlabel = f"o{k}"
     if seg.get("text"):
         png = WORK / f"text_{i:02d}.png"
         render_text(seg["text"], png)
-        idx = len([x for x in inputs if x == "-i"])
+        idx = n_inputs(inputs)
         inputs += ["-loop", "1", "-i", str(png)]
-        fc.append(f"[base][{idx}:v]overlay=0:0:shortest=1[txt]")
+        fc.append(f"[{vlabel}][{idx}:v]overlay=0:0:shortest=1[txt]")
         vlabel = "txt"
     fc.append(f"[{vlabel}]format=yuv420p,setsar=1[v]")
     run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(fc),
@@ -231,7 +302,7 @@ def main():
     t = 0.0
     parts = []
     for i, seg in enumerate(SEGMENTS):
-        print(f"[{i:02d}] {t:5.2f}s  {seg.get('src', seg.get('img'))}  {seg['dur']:.3f}s")
+        print(f"[{i:02d}] {t:5.2f}s  {seg.get('src') or seg.get('img') or seg.get('tpl')}  {seg['dur']:.3f}s")
         parts.append(build_segment(i, seg))
         t += seg["dur"]
     lst = WORK / "concat.txt"
