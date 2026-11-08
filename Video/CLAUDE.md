@@ -48,6 +48,10 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
 - **`media-use` skill** (already available) — transcripts, captions, colour grades/looks, music & SFX,
   audio mixing with free local tools.
 - **Whisper** (to install) — speech-to-text for talking-head clips and captions.
+- **Edits** (Instagram's editor, `/Applications/Edits.app`) — Manuel's finishing tool: auto-captions,
+  licensed IG music, posting. Claude can't drive it; Claude delivers the cut MP4 for Manuel to finish there.
+- **Wispr Flow** — Manuel's dictation app (voice → typed text). Used to talk storyboards into chat;
+  it does not transcribe video files.
 - Later: a DaVinci Resolve MCP server if we move editing into Resolve.
 
 ## Reference reels
