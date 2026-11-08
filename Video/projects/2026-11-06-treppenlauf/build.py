@@ -50,20 +50,28 @@ SEGMENTS = [
     dict(img="IMG_2654.PNG", dur=1.4, zoom=(2.0, 2.6), ease=True, focus=dm(340, 1820), hit=True,
          text=T(470, ("15.", 330, YELLOW))),
     # --- Scene 4: reality — quick cuts (re-time to music beat later)
-    dict(src="IMG_2631.MOV", ss=4.0, dur=1.1, zoom=(1.1, 1.18)),
-    dict(src="IMG_2632.MOV", ss=0.4, dur=1.0, zoom=(1.15, 1.05)),
-    dict(src="IMG_2633.MOV", ss=0.2, dur=1.0, zoom=(1.0, 1.12)),
-    dict(src="IMG_2632.MOV", ss=3.6, dur=1.0, zoom=(1.1, 1.2)),
-    dict(src="IMG_2630.MOV", ss=4.4, dur=1.6, speed=0.5, zoom=(1.0, 1.1)),
-    dict(src="IMG_2631.MOV", ss=6.0, dur=1.0, zoom=(1.2, 1.1)),
-    dict(src="IMG_2634.MOV", ss=0.0, dur=1.1, zoom=(1.0, 1.1)),
-    dict(src="IMG_2625.MOV", ss=7.2, dur=1.2, zoom=(1.1, 1.2)),
+    # From here on lengths are in beats of the sports track; the drop lands on the first cut.
+    dict(src="IMG_2631.MOV", ss=4.0, beats=2, zoom=(1.1, 1.18)),
+    dict(src="IMG_2632.MOV", ss=0.4, beats=2, zoom=(1.15, 1.05)),
+    dict(src="IMG_2633.MOV", ss=0.2, beats=2, zoom=(1.0, 1.12)),
+    dict(src="IMG_2632.MOV", ss=3.6, beats=2, zoom=(1.1, 1.2)),
+    dict(src="IMG_2630.MOV", ss=4.4, beats=4, speed=0.5, zoom=(1.0, 1.1)),
+    dict(src="IMG_2631.MOV", ss=6.0, beats=2, zoom=(1.2, 1.1)),
+    dict(src="IMG_2634.MOV", ss=0.0, beats=2, zoom=(1.0, 1.1)),
+    dict(src="IMG_2625.MOV", ss=7.2, beats=2, zoom=(1.1, 1.2)),
     # --- Scene 5: twist
-    dict(src="IMG_2634.MOV", ss=2.5, dur=2.0, zoom=(1.05, 1.1),
+    dict(src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
          text=T(520, ("Okay …", 100, WHITE), ("ich muss zugeben.", 72, WHITE))),
-    dict(src="IMG_2634.MOV", ss=4.5, dur=2.05, zoom=(1.1, 1.2),
+    dict(src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
          text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW))),
 ]
+
+# --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
+BGM = ROOT / ".media" / "audio" / "bgm"
+PLAYFUL = dict(file=BGM / "bgm_002.wav", start=0.0, until=10.2, vol=0.45)   # lo-fi plucky, 115 BPM
+HYPE = dict(file=BGM / "bgm_001.wav", drop=46.97, at=11.6, lead=0.7, vol=0.9)  # sports, 127.7 BPM
+BEAT = 60 / 127.7
+ORIG_VOL = 0.35  # original camera sound under the music
 
 
 def run(cmd):
@@ -117,7 +125,7 @@ def build_segment(i, seg):
         speed = seg.get("speed", 1.0)
         inputs += ["-ss", str(seg["ss"]), "-t", f"{dur * speed + 0.1:.3f}", "-i", str(RAW / seg["src"])]
         fc.append(f"[0:v]{GRADE},setpts=(PTS-STARTPTS)/{speed},fps={FPS},scale=2160:3840,{zp},{LOOK}[base]")
-        fc.append(f"[0:a]atempo={speed},aresample=48000,volume=0.8,"
+        fc.append(f"[0:a]atempo={speed},aresample=48000,volume={ORIG_VOL},"
                   f"afade=t=in:d=0.03,afade=t=out:st={dur - 0.04:.3f}:d=0.04[aud]")
     else:
         still = WORK / "dm_crop.png"
@@ -148,23 +156,58 @@ def build_segment(i, seg):
     return out
 
 
+def assign_durations():
+    """Fixed segments use dur; beat segments get frame-snapped lengths on the music's beat grid."""
+    frame, beat_anchor, beats_done = 0, None, 0
+    for seg in SEGMENTS:
+        if "beats" in seg:
+            if beat_anchor is None:
+                beat_anchor = frame / FPS
+            beats_done += seg["beats"]
+            end = round((beat_anchor + beats_done * BEAT) * FPS)
+        else:
+            end = frame + round(seg["dur"] * FPS)
+        seg["dur"] = (end - frame) / FPS
+        frame = end
+    return frame / FPS
+
+
+def mix_music(picture, out, total):
+    lead_at = HYPE["at"] - HYPE["lead"]
+    hype_len = total - lead_at
+    fc = (f"[1:a]atrim={PLAYFUL['start']}:{PLAYFUL['start'] + PLAYFUL['until']},asetpts=PTS-STARTPTS,"
+          f"volume={PLAYFUL['vol']},afade=t=in:d=0.05,afade=t=out:st={PLAYFUL['until'] - 0.05}:d=0.05[p];"
+          f"[2:a]atrim=start={HYPE['drop'] - HYPE['lead']},asetpts=PTS-STARTPTS,volume={HYPE['vol']},"
+          f"afade=t=in:d={HYPE['lead']}:curve=exp,afade=t=out:st={hype_len - 1.2:.3f}:d=1.2,"
+          f"adelay={int(lead_at * 1000)}:all=1[h];"
+          f"[0:a][p][h]amix=inputs=3:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11,"
+          f"aresample=48000[a]")
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(PLAYFUL["file"]),
+         "-i", str(HYPE["file"]), "-filter_complex", fc, "-map", "0:v", "-map", "[a]",
+         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+         "-movflags", "+faststart", str(out)])
+
+
 def main():
     version = sys.argv[1] if len(sys.argv) > 1 else "v1"
     WORK.mkdir(parents=True, exist_ok=True)
     EXPORTS.mkdir(exist_ok=True)
     (WORK / "dm_crop.png").unlink(missing_ok=True)
+    total = assign_durations()
     t = 0.0
     parts = []
     for i, seg in enumerate(SEGMENTS):
-        print(f"[{i:02d}] {t:5.2f}s  {seg.get('src', seg.get('img'))}  {seg['dur']}s")
+        print(f"[{i:02d}] {t:5.2f}s  {seg.get('src', seg.get('img'))}  {seg['dur']:.3f}s")
         parts.append(build_segment(i, seg))
         t += seg["dur"]
     lst = WORK / "concat.txt"
     lst.write_text("".join(f"file '{p}'\n" for p in parts))
-    out = EXPORTS / f"treppenlauf_{version}.mp4"
+    picture = WORK / "picture.mp4"
     run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
-         "-c", "copy", "-movflags", "+faststart", str(out)])
-    print(f"-> {out}  ({t:.2f}s)")
+         "-c", "copy", str(picture)])
+    out = EXPORTS / f"treppenlauf_{version}.mp4"
+    mix_music(picture, out, total)
+    print(f"-> {out}  ({total:.2f}s)")
 
 
 if __name__ == "__main__":

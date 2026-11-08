@@ -1,11 +1,11 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v1
+- **Status:** rough cut v2 (with music)
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
-- **Music / audio:** v1 keeps original sound + one synthesized bass hit on "15." Music (energetic, from ~11 s) to be added in Edits.
+- **Music / audio (v2):** 0–10.2 s playful lo-fi (HeyGen catalog `bgm_002`, 115 BPM), hard stop on "15." + synthesized bass hit; sports track (`bgm_001`, 127.7 BPM) rises in from 10.9 s, drop at 11.6 s on the first stairs cut, fades out at the end. Scene 4–5 cuts snapped to its beat. Original camera sound at 35 %.
 - **Caption (post text):** _TBD_
 - **Hashtags:** _TBD_
 - **Tone rule:** friendly teasing inside the community, nobody looks bad.
@@ -33,8 +33,8 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 ## Open questions
 
 - DM screenshot shows "Welche dumme Sau hat Treppenläufe gedrückt?" — keep, or crop to just the answers?
-- Music: which track in Edits? Cuts in scene 4 should be re-timed to its beat once chosen.
 
 ## Feedback log
 
-- v1 preview (2026-11-08): _waiting for notes_
+- v1 preview (2026-11-08): fixed text overlaps; Manuel asked for music.
+- v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. _waiting for notes_
