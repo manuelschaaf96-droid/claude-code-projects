@@ -40,6 +40,16 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
 5. **Final** — export per `style-guide.md` export spec → `exports/<slug>_final.mp4`.
 6. Commit the `.md` files and push.
 
+## Tools & skills
+
+- **ffmpeg / ffprobe** (Homebrew) — cutting, concatenating, scaling, burning text, export.
+- **`hyperframes` skills** (already available to Claude) — animated titles, kinetic text, captions,
+  overlays, transitions rendered from HTML to video; `hyperframes-registry` has ~450 ready-made blocks.
+- **`media-use` skill** (already available) — transcripts, captions, colour grades/looks, music & SFX,
+  audio mixing with free local tools.
+- **Whisper** (to install) — speech-to-text for talking-head clips and captions.
+- Later: a DaVinci Resolve MCP server if we move editing into Resolve.
+
 ## Reference reels
 
 Manuel saves reels (Instagram "Save" → download, or screen-record) into `references/` or a project's
