@@ -38,8 +38,8 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
 4. **Rough cut** — Claude cuts per the storyboard's cut list with ffmpeg, renders a low-res preview
    to `exports/` (`*_preview.mp4`), and sends it. Manuel gives notes by timecode ("at 0:04 cut earlier").
 5. **Final** — export per `style-guide.md` export spec → `exports/<slug>_final.mp4`.
-   Deliverables stay in `exports/`. Never auto-import into Photos. Manuel brings them into Edits himself
-   (Edits has no file/share/URL import route Claude can use).
+   Deliverables stay in `exports/`; to hand one to Edits, copy it to `~/Movies/Claude Exports/` and
+   `newProject` → `importMedia` → `setTitle` → `saveProject` through the Edits MCP. Never import into Photos.
 6. Commit the `.md` files and push.
 
 ## Tools & skills
@@ -50,8 +50,12 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
 - **`media-use` skill** (already available) — transcripts, captions, colour grades/looks, music & SFX,
   audio mixing with free local tools.
 - **Whisper** (to install) — speech-to-text for talking-head clips and captions.
-- **Edits** (Instagram's editor, `/Applications/Edits.app`) — Manuel's finishing tool: auto-captions,
-  licensed IG music, posting. Claude can't drive it; Claude delivers the cut MP4 for Manuel to finish there.
+- **Edits** (Instagram's editor, `/Applications/Edits.app`) — connected to Claude via its own MCP server
+  `metapilot-native` (http://127.0.0.1:19501/mcp, user scope; only reachable while Edits is running).
+  ~250 tools: newProject, importMedia, addText, captions, licensed IG music (`addSongToComposition`),
+  sound effects, transitions, colour, export, frame capture. **Edits is sandboxed: it can only import
+  files from `~/Movies`** — copy deliverables to `~/Movies/Claude Exports/` before `importMedia`.
+  Never import into the Photos library.
 - **Wispr Flow** — Manuel's dictation app (voice → typed text). Used to talk storyboards into chat;
   it does not transcribe video files.
 - Later: a DaVinci Resolve MCP server if we move editing into Resolve.
