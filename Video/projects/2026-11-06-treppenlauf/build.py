@@ -50,7 +50,7 @@ SEGMENTS = [
     # v7: faster + funnier. Music and meme SFX are added inside Edits (licensed IG songs), see storyboard.md.
     # --- Scene 1: hook
     dict(id="q", src="IMG_2631.MOV", ss=2.0, dur=1.0, zoom=(1.0, 1.06),
-         text=T(560, ("Wer wollte", 80, WHITE), ("Treppenläufe?", 80, WHITE))),
+         text=T(560, ("Wer wollte", 80, WHITE), ("Treppen laufen?", 80, WHITE))),
     dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.6, zoom=(1.25, 1.38), ease=True,
          text=T(520, ("WER WOLLTE", 120, YELLOW), ("TREPPEN", 120, YELLOW), ("LAUFEN?!", 120, YELLOW)),
          overlays=[CAT_SCREAM]),
