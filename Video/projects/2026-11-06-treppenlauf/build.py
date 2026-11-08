@@ -70,8 +70,7 @@ SEGMENTS = [
     dict(id="whip", src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
     # --- Scene 3: asking Leo
     dict(id="leo", img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),
-         text=T(420, ("Also habe ich Leo gefragt,", 60, WHITE), ("wie viele dafür", 60, WHITE),
-                ("gestimmt haben …", 60, WHITE), box=True)),
+         text=T(420, ("Also habe ich", 64, WHITE), ("nachgefragt …", 64, WHITE), box=True)),
     dict(id="fifteen", img="IMG_2654.PNG", dur=2.0, zoom=(2.0, 2.8), ease=True, focus=dm(340, 1820),
          text=T(470, ("15.", 330, YELLOW))),
     # --- Scene 4: reality, cut on Kernkraft 400's beat (140.5 BPM); the drop lands on "drop"
@@ -92,6 +91,8 @@ SEGMENTS = [
          text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW)), overlays=[CAT_HAPPY]),
 ]
 
+# Camera sound muted in these file-time ranges (Manuel's notes, given in Edits timeline time = file time here).
+MUTE = [(6.26, 7.59)]
 MIX_IN_EDITS = True  # v7+: no music/SFX baked in; only camera sound + cat sounds. Music & SFX live in Edits.
 
 # --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
@@ -332,7 +333,9 @@ def main():
          "-c", "copy", str(picture)])
     out = EXPORTS / f"treppenlauf_{version}.mp4"
     if MIX_IN_EDITS:
-        run(["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-c", "copy", "-movflags", "+faststart", str(out)])
+        mute = ",".join(f"volume=0:enable='between(t,{a},{b})'" for a, b in MUTE) or "anull"
+        run(["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-af", mute, "-c:v", "copy",
+             "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)])
         print("cue times:", {seg["id"]: round(seg["t"], 3) for seg in SEGMENTS if "id" in seg})
     else:
         mix_music(picture, out, total)

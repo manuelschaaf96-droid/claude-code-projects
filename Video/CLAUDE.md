@@ -58,7 +58,8 @@ Only `.md` files and scripts go in git. All media is gitignored (see `.gitignore
   Never import into the Photos library.
   **Never delete or overwrite files in `~/Movies/Claude Exports/`** — Edits references them in place
   (no copy); deleting one breaks every project that uses it. To swap a clip's media use a **new filename**
-  (`replaceElementMedia` refuses a name already in its library). Music tracks don't ripple when clips
+  (`replaceElementMedia` refuses a name already in its library) and check `sourceInPoint` afterwards:
+  the swap resets it to 0 on pieces that don't start at source 0 — `slipClip` it back. Music tracks don't ripple when clips
   are deleted — re-align them by hand.
 - **Wispr Flow** — Manuel's dictation app (voice → typed text). Used to talk storyboards into chat;
   it does not transcribe video files.

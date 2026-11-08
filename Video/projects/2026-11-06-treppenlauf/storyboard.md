@@ -113,4 +113,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v7d (2026-11-08, in Edits): removed the two non-stairs shots at 17.9–18.77 s (IMG_2625 flag path, IMG_2626 building; 2 beats). Kernkraft piece 1 trimmed to 17.9, piece 2 moved to 19.4; record stop re-added at 17.87 (ripple delete had removed it). Reel now 21.8 s.
   **The Edits project is now the source of truth** — Manuel's and these edits are not in `build.py`.
 - v7f (2026-11-08, in Edits): opening text → "Wer wollte Treppenläufe?" (first video piece 0–8 s swapped to `treppenlauf_v7f.mp4`).
-- v7g (2026-11-08, in Edits): opening text corrected to "Wer wollte Treppen laufen?" (piece 0–8 s → `treppenlauf_v7g.mp4`). _waiting for notes_
+- v7g (2026-11-08, in Edits): opening text corrected to "Wer wollte Treppen laufen?" (piece 0–8 s → `treppenlauf_v7g.mp4`).
+- v7h (2026-11-08, in Edits): Leo text → "Also habe ich nachgefragt …"; camera sound muted 6.26–7.59 s (`MUTE` in build.py). Pieces 0–8 s and 8–17.9 s now use `treppenlauf_v7h.mp4` (piece 2 slipped back to source 8.467). _waiting for notes_
