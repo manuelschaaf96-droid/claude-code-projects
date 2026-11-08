@@ -1,7 +1,7 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v6 (two cats)
+- **Status:** v7 — built in Edits (project "Treppenlauf v7")
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
@@ -29,6 +29,31 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 8–15 | 11.6–20.07 | 2631, 2632, 2633, 2632, 2630 (slow-mo, 4 beats), 2631, 2634, 2625 | | 2 beats (~0.94 s) each | cuts on the beat, drop on #8 | — (music carries it) |
 | 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
 | 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
+
+## v7 — faster cut, music + SFX in Edits
+
+Picture (`build.py`, `MIX_IN_EDITS = True`): 23 cuts, 23.1 s, vote options as 0.5 s flashes, reality section cut on
+Kernkraft's beat (140.5 BPM, 1–2 beat cuts). Only camera sound + cat sounds are baked in.
+Edits project "Treppenlauf v7" (built via the Edits MCP) adds:
+
+| Time | Element | Vol |
+|---|---|---|
+| 0–6.4 | 🎵 Wii Sports Theme (AWJC Media), stops dead on "15 LEUTE WOLLEN …" | 0.55 |
+| 0.9 / 7.95 | Whoosh (sharp) | 1.0 |
+| 3.6 / 4.1 / 4.6 | Ding on options 1-2-3 | 0.8–0.9 |
+| 6.4 | Record scratch | 1.0 |
+| 6.55 | What (cartoon) | 1.3 |
+| 8.4–10.35 | Drums (suspense) | 0.6 |
+| 8.5–9.9 | Typing (fast) 2 | 0.8 |
+| 10.0 | Bell ding (Leo replies) | 0.7 |
+| 10.4 | Boom (bass) on "15." | 1.0 |
+| 10.75–12.4 | Sad trombone | 0.9 |
+| 12.4–19.23 | 🎵 Kernkraft 400 (Sport Chant Stadium Remix), source 48.78 s on the drop cut | 0.8 |
+| 19.2 | Vinyl record stop (music gap under "Okay …") | 1.0 |
+| 19.65 | Sigh | 1.4 |
+| 20.73–23.13 | 🎵 Kernkraft continues (on grid) under the happy cat + Yay (crowd) | 0.4 / 0.6 |
+
+Licensed songs are stripped from Edits file exports — post directly from Edits. Edits' own SFX need no credits.
 
 ## Cats (v6)
 
@@ -82,4 +107,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". Manuel: good; new hook "Wer wollte Treppenlauf?" + whoosh + SFX, add grumpy dog overlays; sent CapCut templates.
 - v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. Manuel: memes look terrible, remove.
 - v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. Exported to Photos/Edits.
-- v6 (2026-11-08): Manuel tries green screen again with his own clips: screaming cat on the hook, happy cat at the end. _waiting for notes_
+- v6 (2026-11-08): Manuel tries green screen again with his own clips: screaming cat on the hook, happy cat at the end.
+- v7 (2026-11-08): Manuel: better music, better sound, funnier, faster cuts. Rebuilt in Edits with licensed music + Edits SFX. _waiting for notes_

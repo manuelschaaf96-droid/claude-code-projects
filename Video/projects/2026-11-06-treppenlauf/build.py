@@ -47,43 +47,52 @@ CAT_HAPPY = dict(src="cat_happy.mp4", ss=0.0, key="0x00FF01", crop=(640, 40, 700
                  w=640, x=220, y=1920 - 951 - 60, audio=0.9)     # "happy happy happy" cat, bottom centre-left
 
 SEGMENTS = [
+    # v7: faster + funnier. Music and meme SFX are added inside Edits (licensed IG songs), see storyboard.md.
     # --- Scene 1: hook
-    dict(src="IMG_2631.MOV", ss=2.0, dur=1.3, zoom=(1.0, 1.08),
+    dict(id="q", src="IMG_2631.MOV", ss=2.0, dur=1.0, zoom=(1.0, 1.06),
          text=T(560, ("Wer wollte", 80, WHITE), ("Treppenlauf?", 80, WHITE))),
-    dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.8, zoom=(1.25, 1.35), ease=True,
+    dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.6, zoom=(1.25, 1.38), ease=True,
          text=T(520, ("WER WOLLTE", 120, YELLOW), ("TREPPEN", 120, YELLOW), ("LAUFEN?!", 120, YELLOW)),
          overlays=[CAT_SCREAM]),
-    # --- Scene 2: disbelief
-    dict(src="IMG_2625.MOV", ss=5.0, dur=1.6, zoom=(1.05, 1.15),
-         text=T(600, ("WIR HATTEN", 110, WHITE), ("DIE WAHL.", 110, WHITE), ("", 30, WHITE),
-                ("Lauf-ABC", 56, WHITE), ("Last K, Fast K", 56, WHITE), ("Treppenläufe", 56, WHITE))),
-    dict(src="IMG_2628.MOV", ss=0.8, dur=1.8, zoom=(1.12, 1.12),
+    # --- Scene 2: the vote, as quick flashes
+    dict(id="wahl", src="IMG_2625.MOV", ss=5.0, dur=1.0, zoom=(1.05, 1.15),
+         text=T(600, ("WIR HATTEN", 110, WHITE), ("DIE WAHL:", 110, WHITE))),
+    dict(id="opt1", src="IMG_2628.MOV", ss=0.8, dur=0.5, zoom=(1.15, 1.22),
+         text=T(600, ("1", 170, YELLOW), ("Lauf-ABC", 100, WHITE))),
+    dict(id="opt2", src="IMG_2625.MOV", ss=6.3, dur=0.5, zoom=(1.1, 1.2),
+         text=T(600, ("2", 170, YELLOW), ("Last K, Fast K", 90, WHITE))),
+    dict(id="opt3", src="IMG_2632.MOV", ss=0.4, dur=0.5, zoom=(1.1, 1.2),
+         text=T(600, ("3", 170, YELLOW), ("Treppenläufe", 100, WHITE))),
+    dict(id="me", src="IMG_2628.MOV", ss=1.6, dur=1.3, zoom=(1.12, 1.2),
          text=T(560, ("Ich habe für", 72, WHITE), ("LAUF-ABC", 120, YELLOW), ("gestimmt.", 72, WHITE))),
-    dict(id="what", src="IMG_2626.MOV", ss=0.8, dur=1.8, zoom=(1.0, 1.3), ease=True,
+    dict(id="what", src="IMG_2626.MOV", ss=0.8, dur=1.6, zoom=(1.0, 1.35), ease=True,
          text=T(600, ("15 LEUTE", 130, YELLOW), ("WOLLEN", 110, WHITE), ("TREPPENLAUF?!", 100, WHITE))),
     dict(id="whip", src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
-    # --- Scene 3: confirmation (DM screenshot)
+    # --- Scene 3: asking Leo
     dict(id="leo", img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),
          text=T(420, ("Also habe ich Leo gefragt,", 60, WHITE), ("wie viele dafür", 60, WHITE),
                 ("gestimmt haben …", 60, WHITE), box=True)),
-    dict(id="fifteen", img="IMG_2654.PNG", dur=2.6, zoom=(2.0, 2.9), ease=True, focus=dm(340, 1820), hit=True,
+    dict(id="fifteen", img="IMG_2654.PNG", dur=2.0, zoom=(2.0, 2.8), ease=True, focus=dm(340, 1820),
          text=T(470, ("15.", 330, YELLOW))),
-    # --- Scene 4: reality — quick cuts (re-time to music beat later)
-    # From here on lengths are in beats of the sports track; the drop lands on the first cut.
-    dict(src="IMG_2631.MOV", ss=4.0, beats=2, zoom=(1.1, 1.18)),
-    dict(src="IMG_2632.MOV", ss=0.4, beats=2, zoom=(1.15, 1.05)),
-    dict(src="IMG_2633.MOV", ss=0.2, beats=2, zoom=(1.0, 1.12)),
+    # --- Scene 4: reality, cut on Kernkraft 400's beat (140.5 BPM); the drop lands on "drop"
+    dict(id="drop", src="IMG_2631.MOV", ss=4.0, beats=2, zoom=(1.1, 1.18)),
+    dict(src="IMG_2632.MOV", ss=1.0, beats=1, zoom=(1.15, 1.2)),
+    dict(src="IMG_2633.MOV", ss=0.2, beats=1, zoom=(1.0, 1.1)),
     dict(src="IMG_2632.MOV", ss=3.6, beats=2, zoom=(1.1, 1.2)),
-    dict(src="IMG_2630.MOV", ss=4.4, beats=4, speed=0.5, zoom=(1.0, 1.1)),
-    dict(src="IMG_2631.MOV", ss=6.0, beats=2, zoom=(1.2, 1.1)),
-    dict(src="IMG_2634.MOV", ss=0.0, beats=2, zoom=(1.0, 1.1)),
-    dict(src="IMG_2625.MOV", ss=7.2, beats=2, zoom=(1.1, 1.2)),
+    dict(src="IMG_2634.MOV", ss=0.0, beats=1, zoom=(1.0, 1.1)),
+    dict(src="IMG_2631.MOV", ss=5.4, beats=1, zoom=(1.2, 1.25)),
+    dict(id="slowmo", src="IMG_2630.MOV", ss=4.4, beats=4, speed=0.5, zoom=(1.0, 1.12)),
+    dict(src="IMG_2631.MOV", ss=6.2, beats=2, zoom=(1.2, 1.1)),
+    dict(src="IMG_2625.MOV", ss=7.2, beats=1, zoom=(1.1, 1.2)),
+    dict(src="IMG_2626.MOV", ss=2.4, beats=1, zoom=(1.1, 1.25)),
     # --- Scene 5: twist
-    dict(id="okay", src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
+    dict(id="okay", src="IMG_2634.MOV", ss=2.4, beats=3.5, zoom=(1.05, 1.1),
          text=T(520, ("Okay …", 100, WHITE), ("ich muss zugeben.", 72, WHITE))),
-    dict(id="geil", src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
+    dict(id="geil", src="IMG_2634.MOV", ss=4.2, dur=2.4, zoom=(1.1, 1.2),
          text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW)), overlays=[CAT_HAPPY]),
 ]
+
+MIX_IN_EDITS = True  # v7+: no music/SFX baked in; only camera sound + cat sounds. Music & SFX live in Edits.
 
 # --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
 BGM = ROOT / ".media" / "audio" / "bgm"
@@ -105,7 +114,7 @@ SFX = [  # (segment id, offset s, file, trim start, length, gain, tempo)
     ("geil",    0.0,  "sfx_004.mp3", 0.0,  2.4,  0.25, 1.0),  # crowd cheering (under the happy cat)
 ]
 DUCK_WHAT = 0.25  # playful music level under the "what"
-BEAT = 60 / 127.7
+BEAT = 0.42696  # v7: Kernkraft 400 (Sport Chant Stadium Remix), from Edits beat markers
 ORIG_VOL = 0.35  # original camera sound under the music
 
 
@@ -322,7 +331,11 @@ def main():
     run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
          "-c", "copy", str(picture)])
     out = EXPORTS / f"treppenlauf_{version}.mp4"
-    mix_music(picture, out, total)
+    if MIX_IN_EDITS:
+        run(["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-c", "copy", "-movflags", "+faststart", str(out)])
+        print("cue times:", {seg["id"]: round(seg["t"], 3) for seg in SEGMENTS if "id" in seg})
+    else:
+        mix_music(picture, out, total)
     print(f"-> {out}  ({total:.2f}s)")
 
 
