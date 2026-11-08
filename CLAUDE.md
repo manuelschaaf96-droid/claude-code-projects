@@ -13,6 +13,7 @@ This is a monorepo of independent projects:
 | `ai-class.html` | Browser app | Single-file HTML/CSS/JS |
 | `ideas-app/index.html` | Browser app | Eisenhower Matrix idea manager, single file |
 | `AeroSense/` | React Native app | TypeScript, React Native 0.85, bootstrapped with RN CLI |
+| `Video/` | Video editing | Instagram Reels workflow (ffmpeg + markdown storyboards), see `Video/CLAUDE.md`. Media gitignored. |
 | `claude-garmin/` | Python project | Garmin Connect MCP server + a standalone marathon training dashboard (`dashboard.py`). Own git repo (github.com/Jack-Abyss/claude-garmin), gitignored here. |
 
 ## Browser projects (HTML files)
