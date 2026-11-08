@@ -40,14 +40,14 @@ SEGMENTS = [
                 ("Lauf-ABC", 56, WHITE), ("Last K, Fast K", 56, WHITE), ("Treppenläufe", 56, WHITE))),
     dict(src="IMG_2628.MOV", ss=0.8, dur=1.8, zoom=(1.12, 1.12),
          text=T(560, ("Ich habe für", 72, WHITE), ("LAUF-ABC", 120, YELLOW), ("gestimmt.", 72, WHITE))),
-    dict(src="IMG_2626.MOV", ss=0.8, dur=1.8, zoom=(1.0, 1.3), ease=True,
+    dict(id="what", src="IMG_2626.MOV", ss=0.8, dur=1.8, zoom=(1.0, 1.3), ease=True,
          text=T(600, ("15 LEUTE", 130, YELLOW), ("WOLLEN", 110, WHITE), ("TREPPENLAUF?!", 100, WHITE))),
-    dict(src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
+    dict(id="whip", src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
     # --- Scene 3: confirmation (DM screenshot)
-    dict(img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),
+    dict(id="leo", img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),
          text=T(420, ("Also habe ich Leo gefragt,", 60, WHITE), ("wie viele dafür", 60, WHITE),
                 ("gestimmt haben …", 60, WHITE), box=True)),
-    dict(img="IMG_2654.PNG", dur=1.4, zoom=(2.0, 2.6), ease=True, focus=dm(340, 1820), hit=True,
+    dict(id="fifteen", img="IMG_2654.PNG", dur=2.6, zoom=(2.0, 2.9), ease=True, focus=dm(340, 1820), hit=True,
          text=T(470, ("15.", 330, YELLOW))),
     # --- Scene 4: reality — quick cuts (re-time to music beat later)
     # From here on lengths are in beats of the sports track; the drop lands on the first cut.
@@ -60,16 +60,31 @@ SEGMENTS = [
     dict(src="IMG_2634.MOV", ss=0.0, beats=2, zoom=(1.0, 1.1)),
     dict(src="IMG_2625.MOV", ss=7.2, beats=2, zoom=(1.1, 1.2)),
     # --- Scene 5: twist
-    dict(src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
+    dict(id="okay", src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
          text=T(520, ("Okay …", 100, WHITE), ("ich muss zugeben.", 72, WHITE))),
-    dict(src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
+    dict(id="geil", src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
          text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW))),
 ]
 
 # --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
 BGM = ROOT / ".media" / "audio" / "bgm"
-PLAYFUL = dict(file=BGM / "bgm_002.wav", start=0.0, until=10.2, vol=0.45)   # lo-fi plucky, 115 BPM
-HYPE = dict(file=BGM / "bgm_001.wav", drop=46.97, at=11.6, lead=0.7, vol=0.9)  # sports, 127.7 BPM
+# PLAYFUL stops dead on "15."; HYPE's drop lands on the first beat-cut. Times filled in by assign_durations.
+PLAYFUL = dict(file=BGM / "bgm_002.wav", start=0.0, vol=0.45)   # lo-fi plucky, 115 BPM
+HYPE = dict(file=BGM / "bgm_001.wav", drop=46.97, lead=0.7, vol=0.9)  # sports, 127.7 BPM
+
+# Sound effects (Openverse / bundled, see .media/audio/sfx/CREDITS.md). Placed relative to a segment id.
+SFX_DIR = ROOT / ".media" / "audio" / "sfx"
+SFX = [  # (segment id, offset s, file, trim start, length, gain, tempo)
+    ("what",    0.12, "sfx_006.mp3", 0.0,  1.1,  6.0, 0.8),   # "confused what?" stretched to a "whaaat"
+    ("whip",   -0.15, "sfx_011.mp3", 0.0,  0.57, 0.8, 1.0),   # whoosh on the whip pan
+    ("leo",     0.20, "sfx_001.mp3", 0.0,  1.6,  3.0, 1.0),   # typing the DM
+    ("leo",     1.70, "sfx_002.mp3", 0.05, 0.6,  0.6, 1.0),   # reply comes in
+    ("fifteen", 0.45, "sfx_008.mp3", 0.05, 1.95, 1.6, 1.0),   # jammern (two groans)
+    ("okay",   -0.70, "sfx_003.mp3", 0.0,  1.3,  0.6, 1.0),   # record scratch, scratch onset is 0.7 s in
+    ("okay",    0.25, "sfx_005.mp3", 2.0,  1.3, 12.0, 1.0),   # sigh
+    ("geil",    0.0,  "sfx_004.mp3", 0.0,  2.4,  0.5, 1.0),   # crowd cheering
+]
+DUCK_WHAT = 0.25  # playful music level under the "what"
 BEAT = 60 / 127.7
 ORIG_VOL = 0.35  # original camera sound under the music
 
@@ -168,24 +183,43 @@ def assign_durations():
         else:
             end = frame + round(seg["dur"] * FPS)
         seg["dur"] = (end - frame) / FPS
+        seg["t"] = frame / FPS
+        if "beats" in seg and "at" not in HYPE:
+            HYPE["at"] = seg["t"]
+        if seg.get("id") == "fifteen":
+            PLAYFUL["until"] = seg["t"]
         frame = end
     return frame / FPS
 
 
 def mix_music(picture, out, total):
+    at = {seg["id"]: seg["t"] for seg in SEGMENTS if "id" in seg}
     lead_at = HYPE["at"] - HYPE["lead"]
     hype_len = total - lead_at
-    fc = (f"[1:a]atrim={PLAYFUL['start']}:{PLAYFUL['start'] + PLAYFUL['until']},asetpts=PTS-STARTPTS,"
-          f"volume={PLAYFUL['vol']},afade=t=in:d=0.05,afade=t=out:st={PLAYFUL['until'] - 0.05}:d=0.05[p];"
+    w0, w1 = at["what"], at["what"] + 1.3
+    fc = [f"[0:a]anull[orig]",
+          f"[1:a]atrim={PLAYFUL['start']}:{PLAYFUL['start'] + PLAYFUL['until']},asetpts=PTS-STARTPTS,"
+          f"volume={PLAYFUL['vol']},volume={DUCK_WHAT}:enable='between(t,{w0:.3f},{w1:.3f})',"
+          f"afade=t=in:d=0.05,afade=t=out:st={PLAYFUL['until'] - 0.05:.3f}:d=0.05[p]",
+          # hype: rise in, drop on the first beat-cut, cut out under "Okay …", back in on "geil"
           f"[2:a]atrim=start={HYPE['drop'] - HYPE['lead']},asetpts=PTS-STARTPTS,volume={HYPE['vol']},"
           f"afade=t=in:d={HYPE['lead']}:curve=exp,afade=t=out:st={hype_len - 1.2:.3f}:d=1.2,"
-          f"adelay={int(lead_at * 1000)}:all=1[h];"
-          f"[0:a][p][h]amix=inputs=3:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11,"
-          f"aresample=48000[a]")
-    run(["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(PLAYFUL["file"]),
-         "-i", str(HYPE["file"]), "-filter_complex", fc, "-map", "0:v", "-map", "[a]",
-         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
-         "-movflags", "+faststart", str(out)])
+          f"adelay={int(lead_at * 1000)}:all=1,"
+          f"volume=0:enable='between(t,{at['okay'] + 0.03:.3f},{at['geil']:.3f})'[h]"]
+    inputs = ["-i", str(picture), "-i", str(PLAYFUL["file"]), "-i", str(HYPE["file"])]
+    labels = ["[orig]", "[p]", "[h]"]
+    for k, (sid, off, f, start, length, gain, tempo) in enumerate(SFX):
+        idx = 3 + k
+        inputs += ["-i", str(SFX_DIR / f)]
+        delay = max(0, int((at[sid] + off) * 1000))
+        fc.append(f"[{idx}:a]aresample=48000,aformat=channel_layouts=stereo,atrim={start}:{start + length},"
+                  f"asetpts=PTS-STARTPTS,atempo={tempo},volume={gain},afade=t=out:st={length / tempo - 0.08:.3f}:d=0.08,"
+                  f"adelay={delay}:all=1[s{k}]")
+        labels.append(f"[s{k}]")
+    fc.append("".join(labels) + f"amix=inputs={len(labels)}:normalize=0:duration=first,"
+              "loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]")
+    run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[a]",
+         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(out)])
 
 
 def main():

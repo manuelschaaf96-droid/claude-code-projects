@@ -1,7 +1,7 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v2 (with music)
+- **Status:** rough cut v3 (music + sound effects)
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
@@ -30,6 +30,25 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
 | 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
 
+## Sound effects (v3)
+
+| Edit time | Sound | Why |
+|---|---|---|
+| 6.1 s | "confused what?" stretched to a "whaaat", music ducked | reaction to 15 LEUTE WOLLEN TREPPENLAUF?! |
+| 7.65 s | whoosh | whip pan |
+| 8.4 s | iPhone typing | writing to Leo |
+| 9.9 s | message ding | reply comes in |
+| 10.2 s | music stops + bass hit | "15." |
+| 10.65 s | two groans (jammern) | held on "15." (segment extended to 2.6 s) |
+| 12.8 s | drop | stairs action starts |
+| 21.27 s | record scratch, music cuts out | "Okay … ich muss zugeben." |
+| 21.5 s | male sigh | |
+| 23.13 s | music back + crowd cheering | "War doch ZIEMLICH GEIL." |
+
+**Credits required (CC BY) — put in the post caption or comments:**
+- "Sci Fi Message Notification 7.wav" by F.M.Audio, CC BY 4.0 — https://freesound.org/people/F.M.Audio/sounds/686278
+- "small crowd cheering and clapping.wav" by Tomlija, CC BY 3.0 — https://freesound.org/people/Tomlija/sounds/99634
+
 ## Open questions
 
 - DM screenshot shows "Welche dumme Sau hat Treppenläufe gedrückt?" — keep, or crop to just the answers?
@@ -37,4 +56,5 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 ## Feedback log
 
 - v1 preview (2026-11-08): fixed text overlaps; Manuel asked for music.
-- v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. _waiting for notes_
+- v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. Manuel: "schon sehr gut", needs more humor + SFX (whaat, Leo check, jammern).
+- v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". _waiting for notes_
