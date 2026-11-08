@@ -40,12 +40,19 @@ CAT_DANCE = dict(src="capcut_3.mov", ss=2.0, key="0x00FE00", crop=(0, 0, 844, 11
                  w=560, x=1080 - 540, y=1920 - 731 - 150)            # dancing cat with cap
 POLL_SCREEN = dict(key="0x0000FD", center=(540, 900), angle=19.5)  # tablet screen in capcut_2
 
+# v6: Manuel's own green-screen cats (clean downloads, refs/cat_*.mp4), with their meme sound.
+CAT_SCREAM = dict(src="cat_scream.mp4", ss=4.7, key="0x00FE00", crop=(0, 0, 900, 1350),
+                  w=760, x=400, y=1920 - 1140, audio=1.0)         # screaming cat, bottom right
+CAT_HAPPY = dict(src="cat_happy.mp4", ss=0.0, key="0x00FF01", crop=(640, 40, 700, 1040),
+                 w=640, x=220, y=1920 - 951 - 60, audio=0.9)     # "happy happy happy" cat, bottom centre-left
+
 SEGMENTS = [
     # --- Scene 1: hook
     dict(src="IMG_2631.MOV", ss=2.0, dur=1.3, zoom=(1.0, 1.08),
          text=T(560, ("Wer wollte", 80, WHITE), ("Treppenlauf?", 80, WHITE))),
-    dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.5, zoom=(1.25, 1.35), ease=True,
-         text=T(520, ("WER WOLLTE", 120, YELLOW), ("TREPPEN", 120, YELLOW), ("LAUFEN?!", 120, YELLOW))),
+    dict(id="hook", src="IMG_2631.MOV", ss=3.3, dur=1.8, zoom=(1.25, 1.35), ease=True,
+         text=T(520, ("WER WOLLTE", 120, YELLOW), ("TREPPEN", 120, YELLOW), ("LAUFEN?!", 120, YELLOW)),
+         overlays=[CAT_SCREAM]),
     # --- Scene 2: disbelief
     dict(src="IMG_2625.MOV", ss=5.0, dur=1.6, zoom=(1.05, 1.15),
          text=T(600, ("WIR HATTEN", 110, WHITE), ("DIE WAHL.", 110, WHITE), ("", 30, WHITE),
@@ -75,7 +82,7 @@ SEGMENTS = [
     dict(id="okay", src="IMG_2634.MOV", ss=2.4, beats=4, zoom=(1.05, 1.1),
          text=T(520, ("Okay …", 100, WHITE), ("ich muss zugeben.", 72, WHITE))),
     dict(id="geil", src="IMG_2634.MOV", ss=4.2, beats=5, zoom=(1.1, 1.2),
-         text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW))),
+         text=T(520, ("War doch", 90, WHITE), ("ZIEMLICH GEIL.", 110, YELLOW)), overlays=[CAT_HAPPY]),
 ]
 
 # --- Music (HeyGen catalog tracks, imported via media-use into .media/audio/bgm/)
@@ -88,7 +95,6 @@ HYPE = dict(file=BGM / "bgm_001.wav", drop=46.97, lead=0.7, vol=0.9)  # sports, 
 SFX_DIR = ROOT / ".media" / "audio" / "sfx"
 SFX = [  # (segment id, offset s, file, trim start, length, gain, tempo)
     ("hook",   -0.15, "sfx_011.mp3", 0.0,  0.57, 0.9, 1.0),   # whoosh into the hook punchline
-    ("hook",    0.25, "sfx_007.mp3", 0.0,  0.9,  4.0, 1.0),   # "huh?" with the side-eye dog
     ("what",    0.12, "sfx_006.mp3", 0.0,  1.1,  6.0, 0.8),   # "confused what?" stretched to a "whaaat"
     ("whip",   -0.15, "sfx_011.mp3", 0.0,  0.57, 0.8, 1.0),   # whoosh on the whip pan
     ("leo",     0.20, "sfx_001.mp3", 0.0,  1.6,  3.0, 1.0),   # typing the DM
@@ -96,7 +102,7 @@ SFX = [  # (segment id, offset s, file, trim start, length, gain, tempo)
     ("fifteen", 0.45, "sfx_008.mp3", 0.05, 1.95, 1.6, 1.0),   # jammern (two groans)
     ("okay",   -0.70, "sfx_003.mp3", 0.0,  1.3,  0.6, 1.0),   # record scratch, scratch onset is 0.7 s in
     ("okay",    0.25, "sfx_005.mp3", 2.0,  1.3, 12.0, 1.0),   # sigh
-    ("geil",    0.0,  "sfx_004.mp3", 0.0,  2.4,  0.5, 1.0),   # crowd cheering
+    ("geil",    0.0,  "sfx_004.mp3", 0.0,  2.4,  0.25, 1.0),  # crowd cheering (under the happy cat)
 ]
 DUCK_WHAT = 0.25  # playful music level under the "what"
 BEAT = 60 / 127.7
@@ -212,18 +218,24 @@ def build_segment(i, seg):
         else:
             inputs += silent
         fc.append("[1:a]aformat=channel_layouts=stereo,aresample=48000[aud]")
-    vlabel = "base"
+    vlabel, alabel = "base", "aud"
     for k, ov in enumerate(seg.get("overlays", [])):  # keyed meme overlays
         idx = n_inputs(inputs)
         inputs += ["-ss", str(ov["ss"]), "-t", f"{dur + 0.1:.3f}", "-i", str(REFS / ov["src"])]
         cx, cy, cw, ch = ov["crop"]
         fc.append(f"[{idx}:v]setpts=PTS-STARTPTS,fps={FPS},crop={cw}:{ch}:{cx}:{cy},"
-                  f"colorkey={ov['key']}:0.30:0.10,scale={ov['w']}:-2,format=yuva420p[ov{k}]")
+                  f"colorkey={ov['key']}:0.42:0.06,format=gbrap,despill=type=green:mix=0.15:expand=0,"
+                  f"scale={ov['w']}:-2,format=yuva420p[ov{k}]")
         x = str(ov["x"])
         if ov.get("slide"):  # slide in from the left edge
             x = f"if(lt(t,{ov['slide']}),-w+(w+{ov['x']})*t/{ov['slide']},{ov['x']})"
         fc.append(f"[{vlabel}][ov{k}]overlay=x='{x}':y={ov['y']}:eof_action=pass[o{k}]")
         vlabel = f"o{k}"
+        if ov.get("audio"):  # the meme's own sound
+            fc.append(f"[{idx}:a]asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,"
+                      f"volume={ov['audio']},afade=t=out:st={dur - 0.08:.3f}:d=0.08[ova{k}];"
+                      f"[{alabel}][ova{k}]amix=inputs=2:normalize=0:duration=first[aud{k}]")
+            alabel = f"aud{k}"
     if seg.get("text"):
         png = WORK / f"text_{i:02d}.png"
         render_text(seg["text"], png)
@@ -233,7 +245,7 @@ def build_segment(i, seg):
         vlabel = "txt"
     fc.append(f"[{vlabel}]format=yuv420p,setsar=1[v]")
     run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(fc),
-         "-map", "[v]", "-map", "[aud]", "-t", f"{dur:.3f}", "-r", str(FPS),
+         "-map", "[v]", "-map", f"[{alabel}]", "-t", f"{dur:.3f}", "-r", str(FPS),
          "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-profile:v", "high",
          "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", str(out)])
@@ -274,7 +286,8 @@ def mix_music(picture, out, total):
           f"[2:a]atrim=start={HYPE['drop'] - HYPE['lead']},asetpts=PTS-STARTPTS,volume={HYPE['vol']},"
           f"afade=t=in:d={HYPE['lead']}:curve=exp,afade=t=out:st={hype_len - 1.2:.3f}:d=1.2,"
           f"adelay={int(lead_at * 1000)}:all=1,"
-          f"volume=0:enable='between(t,{at['okay'] + 0.03:.3f},{at['geil']:.3f})'[h]"]
+          f"volume=0:enable='between(t,{at['okay'] + 0.03:.3f},{at['geil']:.3f})',"
+          f"volume=0.4:enable='gte(t,{at['geil']:.3f})'[h]"]
     inputs = ["-i", str(picture), "-i", str(PLAYFUL["file"]), "-i", str(HYPE["file"])]
     labels = ["[orig]", "[p]", "[h]"]
     for k, (sid, off, f, start, length, gain, tempo) in enumerate(SFX):

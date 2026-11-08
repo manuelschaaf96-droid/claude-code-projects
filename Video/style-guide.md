@@ -34,6 +34,6 @@ _Fill in together as we figure it out. Claude follows this on every edit unless 
 
 ## Do / don't
 
-- **Don't:** green-screen meme overlays (dogs, cats, cartoon reactions). Tried on the Treppenlauf reel (v4), Manuel: "sieht scheußlich aus". Humor comes from text, timing and sound effects instead.
+- **Green-screen memes: only Manuel's own picks, clean downloads.** v4 (low-res CapCut screen recordings: dogs, cartoon girl, cat) looked terrible and was removed. v6 uses two clean green-screen cat clips Manuel chose (screaming cat on the hook, happy cat at the end) with their original meme sound. Key with `colorkey 0.42/0.06` + light `despill` (0.15) to avoid green edges.
 - **Do:** comedic sound effects (whoosh, "what?", groans, record scratch, sigh, cheering), hard music stops for punchlines, music drop on the action.
 - **Do:** bold Arial Black text with yellow highlight word, black outline.

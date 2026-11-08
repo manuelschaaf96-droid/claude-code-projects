@@ -1,7 +1,7 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v5 (memes removed)
+- **Status:** rough cut v6 (two cats)
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
@@ -29,6 +29,13 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 8–15 | 11.6–20.07 | 2631, 2632, 2633, 2632, 2630 (slow-mo, 4 beats), 2631, 2634, 2625 | | 2 beats (~0.94 s) each | cuts on the beat, drop on #8 | — (music carries it) |
 | 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
 | 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
+
+## Cats (v6)
+
+| Edit time | Clip | Use |
+|---|---|---|
+| 1.3–3.1 s | `refs/cat_scream.mp4` 4.7–6.5 s | screaming cat bottom right on "WER WOLLTE TREPPEN LAUFEN?!", with its scream sound (replaces the "huh?") |
+| 23.6–26.0 s | `refs/cat_happy.mp4` 0–2.4 s | "happy happy happy" cat on "ZIEMLICH GEIL.", its song on top; sports track ducked to 40 %, cheering at 25 % |
 
 ## Meme templates (v4 only — removed in v5)
 
@@ -74,4 +81,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. Manuel: "schon sehr gut", needs more humor + SFX (whaat, Leo check, jammern).
 - v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". Manuel: good; new hook "Wer wollte Treppenlauf?" + whoosh + SFX, add grumpy dog overlays; sent CapCut templates.
 - v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. Manuel: memes look terrible, remove.
-- v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. _waiting for notes_
+- v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. Exported to Photos/Edits.
+- v6 (2026-11-08): Manuel tries green screen again with his own clips: screaming cat on the hook, happy cat at the end. _waiting for notes_
