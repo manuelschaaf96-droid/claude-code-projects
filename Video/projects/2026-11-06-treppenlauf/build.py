@@ -66,7 +66,7 @@ SEGMENTS = [
     dict(id="me", src="IMG_2628.MOV", ss=1.6, dur=1.3, zoom=(1.12, 1.2),
          text=T(560, ("Ich habe für", 72, WHITE), ("LAUF-ABC", 120, YELLOW), ("gestimmt.", 72, WHITE))),
     dict(id="what", src="IMG_2626.MOV", ss=0.8, dur=1.6, zoom=(1.0, 1.35), ease=True,
-         text=T(600, ("15 LEUTE", 130, YELLOW), ("WOLLEN", 110, WHITE), ("TREPPENLAUF?!", 100, WHITE))),
+         text=T(600, ("TREPPENLÄUFE", 100, YELLOW), ("HAT GEWONNEN", 92, WHITE))),
     dict(id="whip", src="IMG_2629.MOV", ss=0.2, dur=0.4, zoom=(1.0, 1.0)),
     # --- Scene 3: asking Leo
     dict(id="leo", img="IMG_2654.PNG", dur=2.0, zoom=(1.0, 1.08), focus=dm(585, 1800),

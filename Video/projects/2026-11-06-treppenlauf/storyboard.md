@@ -108,4 +108,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. Manuel: memes look terrible, remove.
 - v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. Exported to Photos/Edits.
 - v6 (2026-11-08): Manuel tries green screen again with his own clips: screaming cat on the hook, happy cat at the end.
-- v7 (2026-11-08): Manuel: better music, better sound, funnier, faster cuts. Rebuilt in Edits with licensed music + Edits SFX. _waiting for notes_
+- v7 (2026-11-08): Manuel: better music, better sound, funnier, faster cuts. Rebuilt in Edits with licensed music + Edits SFX.
+- v7c (2026-11-08): text at 6.4 s → "TREPPENLÄUFE HAT GEWONNEN" (Manuel). Manuel had removed the whip pan in Edits (−0.47 s, ripple); both Kernkraft pieces moved −0.47 s to stay on the cuts (drop now 11.93 s, music gap 18.77–20.27 s). _waiting for notes_
