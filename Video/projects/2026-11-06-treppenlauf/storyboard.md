@@ -1,7 +1,7 @@
 # Warum wählen Menschen freiwillig Treppenläufe?
 
 - **Date:** 2026-11-06 (session) · storyboard 2026-11-08
-- **Status:** rough cut v4 (meme templates + new hook)
+- **Status:** rough cut v5 (memes removed)
 - **Goal / one-liner:** Self-ironic disbelief that 15 people voted for stair runs, flipping to "ok, it was actually great".
 - **Target length:** ~25 s
 - **References:** none yet
@@ -30,7 +30,7 @@ Scenes: 1 Hook (0–3) · 2 Disbelief (3–8) · 3 Confirmation (8–12) · 4 Re
 | 16 | 20.07–21.93 | IMG_2634 | 2.4 | 4 beats | | Okay … ich muss zugeben. |
 | 17 | 21.93–24.30 | IMG_2634 | 4.2 | 5 beats | slow push | War doch ziemlich geil. |
 
-## Meme templates (v4)
+## Meme templates (v4 only — removed in v5)
 
 Green/blue-screen templates Manuel screen-recorded from CapCut → `refs/capcut_1..3.mov` (gitignored), keyed in `build.py`.
 
@@ -73,4 +73,5 @@ Template sound is not used. The screen recordings are low-res (~850 px), so the 
 - v1 preview (2026-11-08): fixed text overlaps; Manuel asked for music.
 - v2 (2026-11-08): music added, scene 4–5 re-timed to the beat. Manuel: "schon sehr gut", needs more humor + SFX (whaat, Leo check, jammern).
 - v3 (2026-11-08): SFX pass, longer "15." hold with groans, record-scratch music stop on "Okay …". Manuel: good; new hook "Wer wollte Treppenlauf?" + whoosh + SFX, add grumpy dog overlays; sent CapCut templates.
-- v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. _waiting for notes_
+- v4 (2026-11-08): new two-step hook with side-eye dog, girl/tablet template for the vote, staring dog on "15.", dancing cat at the end. Manuel: memes look terrible, remove.
+- v5 (2026-11-08): memes removed; two-step hook (text + whoosh + "huh?") kept, vote beat back on IMG_2626. _waiting for notes_

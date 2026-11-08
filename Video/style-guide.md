@@ -34,4 +34,6 @@ _Fill in together as we figure it out. Claude follows this on every edit unless 
 
 ## Do / don't
 
-- 
+- **Don't:** green-screen meme overlays (dogs, cats, cartoon reactions). Tried on the Treppenlauf reel (v4), Manuel: "sieht scheußlich aus". Humor comes from text, timing and sound effects instead.
+- **Do:** comedic sound effects (whoosh, "what?", groans, record scratch, sigh, cheering), hard music stops for punchlines, music drop on the action.
+- **Do:** bold Arial Black text with yellow highlight word, black outline.
